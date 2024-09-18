@@ -9,14 +9,18 @@ This Memory Card Game is a fun and interactive challenge designed to test your c
 Levels: The game has three levels:
 
 Level 1: Match all the pairs within 1 minute.
+
 Level 2: Complete the challenge within 2 minutes.
+
 Level 3: Finish the game in under 3 minutes.
+
 Each level comes with an increasing number of cards, making it progressively more difficult!
 
 Progress Tracking:
 
 A message will inform you once you have matched a quarter or half of the cards.
 Complete all matches, and you'll be rewarded with a congratulatory message.
+
 Challenges:
 If you exceed the time limit for any level, the game is over, and you'll have to try again. So, act fast and stay focused!
 
@@ -24,11 +28,11 @@ This game is perfect for all ages and provides a great way to improve memory, fo
 
 How to Play:
 
-Choose a level to start.
-Flip two cards to reveal their faces.
-If the cards match, they remain face-up.
-If they don't match, they flip back down, and you can try again.
-Continue until all pairs are matched, but be careful of the timer!
+1-Choose a level to start.
+2-Flip two cards to reveal their faces.
+3-If the cards match, they remain face-up.
+4-If they don't match, they flip back down, and you can try again.
+5-Continue until all pairs are matched, but be careful of the timer!
 
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
