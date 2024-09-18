@@ -1,0 +1,22 @@
+.btn {
+  @apply bg-green-500 text-white py-2 px-4 rounded-lg text-xl cursor-pointer hover:bg-green-700;
+}
+
+.card {
+  @apply relative w-[150px] h-[170px] md:h-[210px] cursor-pointer transition-transform duration-300;
+  transform-style: preserve-3d;
+}
+
+.card.is-revealed {
+  transform: rotateY(180deg);
+}
+
+.card-face,
+.card-back {
+  @apply absolute w-full h-full;
+  backface-visibility: hidden;
+}
+
+.card-face {
+  transform: rotateY(180deg); /* Flip the front to hide by default */
+}
