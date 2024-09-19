@@ -1,18 +1,29 @@
 import { useEffect } from 'react';
 
-export function Timer({ timeLeft, setTimeLeft, onTimeout }) {
+export function Timer({ isRunning,time,setTime,setIsRunning,setGameOver }) {
+
+
+  // Timer logic: Decrement time every second if the timer is running
   useEffect(() => {
-    if (timeLeft > 0) {
-      const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timerId);
-    } else {
-      onTimeout();
+    let timer;
+    if (isRunning && time > 0) {
+      timer = setInterval(() => {
+        setTime((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (time === 0) {
+      setIsRunning(false);
+      setGameOver(true); // Player loses when time runs out
     }
-  }, [timeLeft]);
+    return () => clearInterval(timer);
+  }, [isRunning, time]);
+
 
   return (
-    <div className="text-center">
-      <p>Time Left: {timeLeft} seconds</p>
-    </div>
+    <>
+    {/* Display countdown timer */}
+    <p className="text-[#35b08b] text-base sm:text-2xl">Time Left: {time}s</p> 
+    </>
+    
+
   );
 }

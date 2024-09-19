@@ -1,17 +1,39 @@
-export function Messages({ progress }) {
-  let message = '';
+import { useEffect } from "react";
 
-  if (progress === 'quarter') {
-    message = 'You have completed a quarter of the cards!';
-  } else if (progress === 'half') {
-    message = 'You have completed half of the cards!';
-  } else if (progress === 'done') {
-    message = 'Well done, you have completed this round!';
-  }
+export function Messages({ gameOver,message,cards,revealedCount,setMessage,setIsRunning }) {
 
+    // Check for progress updates
+  useEffect(() => {
+    const totalCards = cards.length;
+    const quarter = Math.floor(totalCards / 4);
+    const half = Math.floor(totalCards / 2);
+
+    // Only show progress messages when at least one pair is revealed
+    if (revealedCount > 0) {
+      if (revealedCount === totalCards) {
+        setMessage("Well done, you have completed this round!");
+        setIsRunning(false); // Stop the timer when the game is completed
+      } else if (revealedCount >= half) {
+        setMessage("You've completed half of the cards!");
+      } else if (revealedCount >= quarter) {
+        setMessage("You've completed a quarter of the cards!");
+      }
+    }
+  }, [revealedCount, cards.length]);
+ 
   return (
-    <div className="text-center">
-      {message && <p className="text-2xl text-green-500">{message}</p>}
-    </div>
+    <>
+     {/* Game over message */}
+      {gameOver && (
+        <div className="text-red-500 text-lg text-center sm:text-3xl mb-4">
+          Time is up! You have lost. Try again!
+        </div>
+      )}
+
+      {/* Show progress message */}
+      {!gameOver && message && (
+        <div className="text-[#35b08b] text-center text-base sm:text-2xl mb-4">{message}</div>
+      )}
+    </>
   );
 }

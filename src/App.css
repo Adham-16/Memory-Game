@@ -1,9 +1,9 @@
 .btn {
-  @apply bg-green-500 text-white py-2 px-4 rounded-lg text-xl cursor-pointer hover:bg-green-700;
+  @apply bg-green-500 text-white py-0.5 px-2 sm:py-2 sm:px-4 rounded-lg text-sm sm:text-xl cursor-pointer hover:bg-green-700;
 }
 
 .card {
-  @apply relative w-[150px] h-[170px] md:h-[210px] cursor-pointer transition-transform duration-300;
+  @apply relative w-[85px] h-[130px] md:h-[140px] md:w-[100px] cursor-pointer transition-transform duration-300;
   transform-style: preserve-3d;
 }
 
@@ -13,7 +13,7 @@
 
 .card-face,
 .card-back {
-  @apply absolute w-full h-full;
+  @apply absolute;
   backface-visibility: hidden;
 }
 

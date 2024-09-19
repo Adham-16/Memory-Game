@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card } from "./Card";
 import './App.css';
+import { LevelSelector } from "./LevelSelector";
+import { Messages } from "./Messages";
+import { Timer } from "./Timer";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -41,20 +44,6 @@ function App() {
     setMessage(""); // Reset progress message
   };
 
-  // Timer logic: Decrement time every second if the timer is running
-  useEffect(() => {
-    let timer;
-    if (isRunning && time > 0) {
-      timer = setInterval(() => {
-        setTime((prevTime) => prevTime - 1);
-      }, 1000);
-    } else if (time === 0) {
-      setIsRunning(false);
-      setGameOver(true); // Player loses when time runs out
-    }
-    return () => clearInterval(timer);
-  }, [isRunning, time]);
-
   // Update revealed cards logic
   const updateRevealedCard = (index) => {
     if (disabled || gameOver) return; // Disable interaction if game is over
@@ -91,85 +80,33 @@ function App() {
     }
   }, [firstCard, secondCard]);
 
-  // Check for progress updates
-  useEffect(() => {
-    const totalCards = cards.length;
-    const quarter = Math.floor(totalCards / 4);
-    const half = Math.floor(totalCards / 2);
-
-    // Only show progress messages when at least one pair is revealed
-    if (revealedCount > 0) {
-      if (revealedCount === totalCards) {
-        setMessage("Well done, you have completed this round!");
-        setIsRunning(false); // Stop the timer when the game is completed
-      } else if (revealedCount >= half) {
-        setMessage("You've completed half of the cards!");
-      } else if (revealedCount >= quarter) {
-        setMessage("You've completed a quarter of the cards!");
-      }
-    }
-  }, [revealedCount, cards.length]);
-
-  // Restart the game with the selected level
-  const handleNewGame = (level) => {
-    if (level === 1) {
-      setStage(1);
-      initGame(4, 60); // 4 pairs, 1 minute
-    } else if (level === 2) {
-      setStage(2);
-      initGame(8, 120); // 8 pairs, 2 minutes
-    } else if (level === 3) {
-      setStage(3);
-      initGame(12, 180); // 12 pairs, 3 minutes
-    }
-  };
-
   return (
     <div className="flex flex-col items-center mt-10">
+
       {/* Level selection buttons */}
-      <div className="flex gap-4 mb-4">
-        <button onClick={() => handleNewGame(1)} className="btn">Level 1 (Easy)</button>
-        <button onClick={() => handleNewGame(2)} className="btn">Level 2 (Medium)</button>
-        <button onClick={() => handleNewGame(3)} className="btn">Level 3 (Hard)</button>
-      </div>
+      <LevelSelector initGame={initGame} setStage={setStage} stage={stage}/>
 
-      {/* Game over message */}
-      {gameOver && (
-        <div className="text-red-500 text-3xl mb-4">
-          Time's up! You lost. Try again!
-        </div>
-      )}
-
-      {/* Show progress message */}
-      {!gameOver && message && (
-        <div className="text-[#35b08b] text-2xl mb-4">{message}</div>
-      )}
-
+      {/* Game over message && Show progress message */}
+      <Messages gameOver={gameOver} message={message} cards={cards} revealedCount={revealedCount} setMessage={setMessage} setIsRunning={setIsRunning} />
+      
       {/* Only show cards and timer if the game is not over */}
       {!gameOver && stage > 0 && (
         <>
           <div className="grid place-content-center grid-cols-4 xl:grid-cols-8 gap-2">
             {cards?.map((card, i) => (
-              <Card
-                key={i}
-                card={card}
-                index={i}
-                updateRevealedCard={updateRevealedCard}
-                isRevealed={card.revealed || i === firstCard || i === secondCard}
-              />
+              <Card key={i} card={card} index={i} updateRevealedCard={updateRevealedCard} isRevealed={card.revealed || i === firstCard || i === secondCard} />
             ))}
           </div>
 
           {/* Display timer and turn count */}
-          <div className="flex items-baseline justify-between w-1/2 mx-16 my-6">
-            <button onClick={() => handleNewGame(stage)} className="btn">Restart Level</button>
-            <p className="text-[#35b08b] text-2xl">Turn: {turn}</p>
-            <p className="text-[#35b08b] text-2xl">Time Left: {time}s</p> {/* Display countdown timer */}
+          <div className="flex items-baseline justify-between w-4/5 sm:w-1/2 mx-5 my-2 sm:mx-16 sm:my-3">
+            <p className="text-[#35b08b] text-base sm:text-2xl">Turn: {turn}</p>
+            <Timer isRunning={isRunning}  time={time}  setTime={setTime}  setIsRunning={setIsRunning}  setGameOver={setGameOver} />
           </div>
         </>
       )}
     </div>
-  );
+  );  
 }
 
 export default App;
