@@ -5,6 +5,7 @@ import { LevelSelector } from "./LevelSelector";
 import { Messages } from "./Messages";
 import { Timer } from "./Timer";
 import { Helmet } from "react-helmet";
+import { HighScore } from "./HighScore";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -13,7 +14,7 @@ function App() {
   const [disabled, setDisabled] = useState(false);
   const [turn, setTurn] = useState(0);
   const [stage, setStage] = useState(0); // Current level
-  const [time, setTime] = useState(60); // Default 60 seconds for level 1
+  const [time, setTime] = useState(30); // Default 30 seconds for level 1
   const [isRunning, setIsRunning] = useState(false); // Control timer state
   const [gameOver, setGameOver] = useState(false); // Track if game is lost
   const [revealedCount, setRevealedCount] = useState(0); // Track revealed cards
@@ -33,7 +34,7 @@ function App() {
       const j = Math.floor(Math.random() * (i + 1));
       [cards[i], cards[j]] = [cards[j], cards[i]];
     }
-
+    
     setTimeout(() => setCards(cards), 300);
     setTurn(0);
     setFirstCard();
@@ -92,11 +93,15 @@ function App() {
       {/* Level selection buttons */}
       <LevelSelector initGame={initGame} setStage={setStage} stage={stage}/>
 
+      {!isRunning&& 
+      <HighScore stage={stage} time={time} turn={turn} cards={cards} revealedCount={revealedCount}/>
+      }
+
       {/* Game over message && Show progress message */}
-      <Messages stage={stage} gameOver={gameOver} message={message} cards={cards} revealedCount={revealedCount} setMessage={setMessage} setIsRunning={setIsRunning} initGame={initGame} setStage={setStage} />
+      <Messages stage={stage} gameOver={gameOver} message={message} cards={cards} revealedCount={revealedCount} setMessage={setMessage} setIsRunning={setIsRunning} setStage={setStage} initGame={initGame} />
       
       {/* Only show cards and timer if the game is not over */}
-      {!gameOver && stage > 0 && (
+      {!gameOver&& isRunning && stage > 0 && (
         <>
           <div className="grid place-content-center grid-cols-4 xl:grid-cols-8 gap-2">
             {cards?.map((card, i) => (
