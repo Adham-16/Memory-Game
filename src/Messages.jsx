@@ -13,6 +13,7 @@ export function Messages({ gameOver,message,cards,revealedCount,setMessage,setIs
       if (revealedCount === totalCards) {
         setMessage("Well done, you have completed this round!");
         setIsRunning(false); // Stop the timer when the game is completed
+        navigator.vibrate([100,50,100])
       } else if (revealedCount >= half) {
         setMessage("You've completed half of the cards!");
       } else if (revealedCount >= quarter) {
