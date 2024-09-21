@@ -4,6 +4,7 @@ import './App.css';
 import { LevelSelector } from "./LevelSelector";
 import { Messages } from "./Messages";
 import { Timer } from "./Timer";
+import { Helmet } from "react-helmet";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -82,12 +83,17 @@ function App() {
 
   return (
     <div className="flex flex-col items-center mt-10">
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>{stage ? 'level '+ stage : 'Memory Card Game' }</title>
+      <link rel="icon" href="/public/pix/card game.png" />
+    </Helmet>
 
       {/* Level selection buttons */}
       <LevelSelector initGame={initGame} setStage={setStage} stage={stage}/>
 
       {/* Game over message && Show progress message */}
-      <Messages gameOver={gameOver} message={message} cards={cards} revealedCount={revealedCount} setMessage={setMessage} setIsRunning={setIsRunning} />
+      <Messages stage={stage} gameOver={gameOver} message={message} cards={cards} revealedCount={revealedCount} setMessage={setMessage} setIsRunning={setIsRunning} initGame={initGame} setStage={setStage} />
       
       {/* Only show cards and timer if the game is not over */}
       {!gameOver && stage > 0 && (

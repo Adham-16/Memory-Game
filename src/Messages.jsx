@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function Messages({ gameOver,message,cards,revealedCount,setMessage,setIsRunning }) {
+export function Messages({stage,setStage,gameOver,message,cards,revealedCount,setMessage,setIsRunning,initGame }) {
 
     // Check for progress updates
   useEffect(() => {
@@ -13,6 +13,13 @@ export function Messages({ gameOver,message,cards,revealedCount,setMessage,setIs
       if (revealedCount === totalCards) {
         setMessage("Well done, you have completed this round!");
         setIsRunning(false); // Stop the timer when the game is completed
+        if (stage && stage === 1) {
+          setStage(2);
+          initGame(8, 60);
+        }else if (stage && stage === 2) {
+          setStage(3);
+          initGame(12, 120);
+        }
         navigator.vibrate([200,100,200])
       } else if (revealedCount >= half) {
         setMessage("You've completed half of the cards!");

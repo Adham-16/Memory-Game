@@ -3,7 +3,7 @@
 }
 
 .card {
-  @apply relative w-[85px] h-[130px] md:h-[140px] md:w-[100px] cursor-pointer transition-transform duration-300;
+  @apply relative w-[85px] h-[130px] md:h-[140px] md:w-[100px] cursor-pointer transition-transform duration-200;
   transform-style: preserve-3d;
 }
 
