@@ -69,7 +69,7 @@ function App() {
           revealed: card.revealed || i === firstCard || i === secondCard,
         }));
         setCards(updatedCards);
-        navigator.vibrate(50)
+        
         // Increase revealed count by 2 when a match is found
         setRevealedCount(revealedCount + 2);
 
