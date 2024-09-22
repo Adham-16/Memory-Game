@@ -1,22 +1,21 @@
 import { useEffect } from "react";
 
-export function HighScore({ revealedCount, cards, stage, time, turn }) {
+export function HighScore({ revealedCount, cards, stage, time, turn,isRunning }) {
   useEffect(() => {
-    if (revealedCount > 0 && cards.length === revealedCount) {
-      // Retrieve the existing high score data
-      const existingData = JSON.parse(localStorage.getItem(`Best-Time&turn-${stage}`)) || { time: Infinity, turn: Infinity };
+    
+      const timeTurnStorage = JSON.parse(localStorage.getItem(`Best-Time&turn-${stage}`));
 
-      // Check and update if the new time or turn is better
-      const bestTime = Math.max(existingData.time, time);
-      const bestTurn = Math.min(existingData.turn, turn);
-
-      // Create updated high score data
-      const highScoreData = { time: bestTime, turn: bestTurn };
-
-      // Store the updated high scores in localStorage
+      if (timeTurnStorage == null && revealedCount > 0 && cards.length === revealedCount) {
+      const highScoreData = { time,turn };
       localStorage.setItem(`Best-Time&turn-${stage}`, JSON.stringify(highScoreData));
-    }
-  }, [revealedCount, cards, stage, time, turn]);
+      
+      }else if (timeTurnStorage !== null && revealedCount > 0 && cards.length === revealedCount) {
+        const bestTime = Math.max(timeTurnStorage.time, time);
+        const bestTurn = Math.min(timeTurnStorage.turn, turn);
+        const highScoreData = { time: bestTime,turn:bestTurn };
+        localStorage.setItem(`Best-Time&turn-${stage}`, JSON.stringify(highScoreData));
+      
+      }}, [revealedCount, cards]);
 
   // Function to retrieve high scores for each level
   const getHighScores = (level) => {
@@ -33,10 +32,11 @@ export function HighScore({ revealedCount, cards, stage, time, turn }) {
     {revealedCount > 0 && cards.length === revealedCount &&
     <div className="my-4 text-white text-sm sm:text-xl">Your score    {'time:  ' + time + '   turn: '+ turn }</div>
     }
-    <table className="w-60 border-collapse border border-green-800 bg-green-700 text-white">
+    {!isRunning &&
+      <table className="w-60 border-collapse border border-green-800 bg-green-700 text-white mb-3">
       <thead>
         <tr>
-          <th colSpan="3" className="p-4 text-lg font-bold">Past HighScore</th>
+          <th colSpan="3" className="p-4 text-lg font-bold">Best High Score</th>
         </tr>
       </thead>
       <tbody>
@@ -61,7 +61,35 @@ export function HighScore({ revealedCount, cards, stage, time, turn }) {
           <td className="border border-green-800 p-2">{level3Scores.turn !== 'N/A' ? level3Scores.turn : 'N/A'}</td>
         </tr>
       </tbody>
-    </table>
+    </table>}
     </>
   );
 }
+
+
+
+
+// chatgpt answer
+// chatgpt answer
+
+  // useEffect(() => {
+  //   if (revealedCount > 0 && cards.length === revealedCount) {
+  //     // Retrieve the existing high score data
+  //     const existingData = JSON.parse(localStorage.getItem(`Best-Time&turn-${stage}`)) || { time: Infinity, turn: Infinity };
+
+  //     // Check and update if the new time or turn is better
+  //     const bestTime = Math.max(existingData.time, time);
+  //     const bestTurn = Math.min(existingData.turn, turn);
+  //     console.log(turn);
+  //     console.log(existingData.turn);
+      
+  //     console.log(bestTime);
+  //     console.log(bestTurn);
+      
+  //     // Create updated high score data
+  //     const highScoreData = { time: bestTime, turn: bestTurn };
+
+  //     // Store the updated high scores in localStorage
+  //     localStorage.setItem(`Best-Time&turn-${stage}`, JSON.stringify(highScoreData));
+  //   }
+  // }, [revealedCount, cards, stage, time, turn]);

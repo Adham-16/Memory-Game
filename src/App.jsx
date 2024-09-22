@@ -20,6 +20,7 @@ function App() {
   const [revealedCount, setRevealedCount] = useState(0); // Track revealed cards
   const [message, setMessage] = useState(""); // Message for progress updates
 
+
   // Initialize the game with shuffled cards and set the timer based on level
   const initGame = (pairs, levelTime) => {
     const cards = new Array(pairs * 2)
@@ -93,9 +94,9 @@ function App() {
       {/* Level selection buttons */}
       <LevelSelector initGame={initGame} setStage={setStage} stage={stage}/>
 
-      {!isRunning&& 
-      <HighScore stage={stage} time={time} turn={turn} cards={cards} revealedCount={revealedCount}/>
-      }
+      
+      <HighScore stage={stage} time={time} turn={turn} cards={cards} revealedCount={revealedCount} isRunning={isRunning}/>
+      
 
       {/* Game over message && Show progress message */}
       <Messages stage={stage} gameOver={gameOver} message={message} cards={cards} revealedCount={revealedCount} setMessage={setMessage} setIsRunning={setIsRunning} setStage={setStage} initGame={initGame} />
