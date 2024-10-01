@@ -26,7 +26,7 @@ function App() {
     const cards = new Array(pairs * 2)
       .fill()
       .map((_, index) => ({
-        src: `/pix/${index % pairs + 1}.jpg`,
+        src: `/pix/${index % pairs + 1}.webp`,
         revealed: false,
       }));
 
