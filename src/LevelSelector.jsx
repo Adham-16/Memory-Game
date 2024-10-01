@@ -1,4 +1,4 @@
-export function LevelSelector({setStage,initGame,stage}) {
+export function LevelSelector({setStage,initGame,stage ,isRunning}) {
 
    // Restart the game with the selected level
   function handleNewGame (level) {
@@ -22,7 +22,7 @@ export function LevelSelector({setStage,initGame,stage}) {
         <button onClick={() => handleNewGame(1)} className="btn">Level 1</button>
         <button onClick={() => handleNewGame(2)} className="btn">Level 2</button>
         <button onClick={() => handleNewGame(3)} className="btn">Level 3</button>
-        { stage > 0 &&
+        { stage > 0 && isRunning &&
         <button onClick={() => handleNewGame(stage)} className="btn bg-[#35B08B]">Restart Level</button>
         }
       </div>

@@ -29,10 +29,8 @@ export function HighScore({ revealedCount, cards, stage, time, turn,isRunning })
 
   return (
     <>
-    {revealedCount > 0 && cards.length === revealedCount &&
-    <div className="my-4 text-white text-sm sm:text-xl">Your score    {'time:  ' + time + '   turn: '+ turn }</div>
-    }
-    {!isRunning &&
+
+    {!isRunning && 
       <table className="w-60 border-collapse border border-green-800 bg-green-700 text-white mb-3">
       <thead>
         <tr>

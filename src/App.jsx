@@ -20,7 +20,6 @@ function App() {
   const [revealedCount, setRevealedCount] = useState(0); // Track revealed cards
   const [message, setMessage] = useState(""); // Message for progress updates
 
-
   // Initialize the game with shuffled cards and set the timer based on level
   const initGame = (pairs, levelTime) => {
     const cards = new Array(pairs * 2)
@@ -35,7 +34,6 @@ function App() {
       const j = Math.floor(Math.random() * (i + 1));
       [cards[i], cards[j]] = [cards[j], cards[i]];
     }
-    
     setTimeout(() => setCards(cards), 300);
     setTurn(0);
     setFirstCard();
@@ -83,16 +81,22 @@ function App() {
     }
   }, [firstCard, secondCard]);
 
+
+  const exitGame = () => {
+    setStage(0)
+    setIsRunning(false)
+  };
+
   return (
     <div className="flex flex-col items-center mt-10">
     <Helmet>
       <meta charSet="utf-8" />
       <title>{stage ? 'level '+ stage : 'Memory Card Game' }</title>
-      <link rel="icon" href="/public/pix/card game.avif" />
+      <link rel="icon" href="/public/pix/card game.webp" />
     </Helmet>
 
       {/* Level selection buttons */}
-      <LevelSelector initGame={initGame} setStage={setStage} stage={stage}/>
+      <LevelSelector isRunning={isRunning} initGame={initGame} setStage={setStage} stage={stage}/>
 
       
       <HighScore stage={stage} time={time} turn={turn} cards={cards} revealedCount={revealedCount} isRunning={isRunning}/>
@@ -113,6 +117,7 @@ function App() {
           {/* Display timer and turn count */}
           <div className="flex items-baseline justify-between w-4/5 sm:w-1/2 mx-5 my-2 sm:mx-16 sm:my-3">
             <p className="text-[#35b08b] text-base sm:text-2xl">Turn: {turn}</p>
+            <button className="btn bg-red-700 hover:bg-red-500" onClick={exitGame}>Exit Game</button>
             <Timer isRunning={isRunning}  time={time}  setTime={setTime}  setIsRunning={setIsRunning}  setGameOver={setGameOver} />
           </div>
         </>
