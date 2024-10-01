@@ -26,7 +26,7 @@ function App() {
     const cards = new Array(pairs * 2)
       .fill()
       .map((_, index) => ({
-        src: `/pix/${index % pairs + 1}.webp`,
+        src: `/pix/${index % pairs + 1}.avif`,
         revealed: false,
       }));
 
@@ -88,7 +88,7 @@ function App() {
     <Helmet>
       <meta charSet="utf-8" />
       <title>{stage ? 'level '+ stage : 'Memory Card Game' }</title>
-      <link rel="icon" href="/public/pix/card game.png" />
+      <link rel="icon" href="/public/pix/card game.avif" />
     </Helmet>
 
       {/* Level selection buttons */}

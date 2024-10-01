@@ -9,7 +9,7 @@ export function Card({ card, index, updateRevealedCard, isRevealed }) {
         <img className="w-full h-3/4" alt="card-face" src={card.src} />
       </div>
       <div className="card-back">
-        <img className="w-full h-3/4 " alt="card-back" src="/pix/16.webp" />
+        <img className="w-full h-3/4 " alt="card-back" src="/pix/16.avif" />
       </div>
     </div>
   );
