@@ -11,7 +11,7 @@ export function Messages({stage,setStage,gameOver,message,cards,revealedCount,se
     // Only show progress messages when at least one pair is revealed
     if (revealedCount > 0) {
       if (revealedCount === totalCards) {
-        setMessage("Well done, you have completed this round!");
+        setMessage("I knew you’d smash it! Straight up, you're the boss, no cap!");
         setIsRunning(false); // Stop the timer when the game is completed
         if (stage && stage === 1) {
           setStage(2);
@@ -22,10 +22,10 @@ export function Messages({stage,setStage,gameOver,message,cards,revealedCount,se
         }
         navigator.vibrate([200,100,200])
       } else if (revealedCount >= half) {
-        setMessage("You've completed half of the cards!");
+        setMessage("You’re on the edge, man! Could go either way, so hustle up!");
         navigator.vibrate(100)
       } else if (revealedCount >= quarter) {
-        setMessage("You've completed a quarter of the cards!");
+        setMessage("Yo, you're killin' it, but don't get cocky! Still got a long road ahead, bro!");
         navigator.vibrate(100)
       }
     }
