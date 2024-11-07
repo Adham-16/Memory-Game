@@ -85,6 +85,7 @@ function App() {
   const exitGame = () => {
     setStage(0)
     setIsRunning(false)
+    setMessage("");
   };
 
   return (
